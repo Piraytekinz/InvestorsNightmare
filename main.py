@@ -3,6 +3,10 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 
@@ -57,7 +61,7 @@ def send_email(sender_email, sender_password, receiver_email, subject, body, att
     
     # Connect to Gmail's SMTP server and send email
     server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
-    server.login("joshuaanang783@gmail.com", "tywhgipnqqwheylv")
+    server.login("joshuaanang783@gmail.com", os.getenv('APP_PASSWORD'))
     server.sendmail("joshuaanang783@gmail.com", receiver_email, msg.as_string())
     server.quit()
     # with smtplib.SMTP('smtp.gmail.com', 465) as server:
@@ -113,7 +117,7 @@ for link in links[77:]:
 
     send_email(
         sender_email="joshuaanang783@gmail.com",
-        sender_password="tywhgipnqqwheylv",  # Use app-specific password if 2FA is enabled
+        sender_password=os.getenv('APP_PASSWORD'),  # Use app-specific password if 2FA is enabled
         receiver_email="anangjosh8@gmail.com",
         subject="Digital HealthTech Startup - 500+ customers - US - Pre-Seed",
         body=body,
